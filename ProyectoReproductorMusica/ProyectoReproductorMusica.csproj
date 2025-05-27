@@ -48,8 +48,10 @@
   <ItemGroup>
     <Compile Include="Animaciones\EllipseAnimacion.cs" />
     <Compile Include="Animaciones\RhombusAnimacion.cs" />
+    <Compile Include="Animaciones\StarAnimacion.cs" />
     <Compile Include="Animaciones\TrianguleAnimacion.cs" />
     <Compile Include="Figuras\Elipse.cs" />
+    <Compile Include="Figuras\Estrella.cs" />
     <Compile Include="Figuras\Figura.cs" />
     <Compile Include="Figuras\Rombo.cs" />
     <Compile Include="Figuras\Triangulo.cs" />
