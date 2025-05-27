@@ -77,7 +77,6 @@
             this.picBack.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picBack.TabIndex = 3;
             this.picBack.TabStop = false;
-            this.picBack.Click += new System.EventHandler(this.picBack_Click);
             // 
             // picForward
             // 
@@ -89,7 +88,6 @@
             this.picForward.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picForward.TabIndex = 4;
             this.picForward.TabStop = false;
-            this.picForward.Click += new System.EventHandler(this.picForward_Click);
             // 
             // picPause
             // 

@@ -46,6 +46,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Animaciones\EllipseAnimacion.cs" />
+    <Compile Include="Animaciones\RhombusAnimacion.cs" />
+    <Compile Include="Animaciones\TrianguleAnimacion.cs" />
     <Compile Include="Figuras\Elipse.cs" />
     <Compile Include="Figuras\Figura.cs" />
     <Compile Include="Figuras\Rombo.cs" />
@@ -62,6 +65,7 @@
     <Compile Include="FrmReproductor.Designer.cs">
       <DependentUpon>FrmReproductor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\IAnimacion.cs" />
     <Compile Include="Pantallas\PrimerPantalla.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

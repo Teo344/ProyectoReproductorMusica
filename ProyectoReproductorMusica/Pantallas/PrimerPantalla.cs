@@ -1,135 +1,74 @@
 ﻿using ProyectoReproductorMusica.Figuras;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Drawing;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TreeView;
+using System.Windows.Forms;
 
 namespace ProyectoReproductorMusica.Pantallas
 {
-
     class PrimerPantalla
     {
-        CTriangle ObjTriangle;
-        CEllipse ObjEllipse;
-        CRombo ObjRombo;
+        private CTriangle objTriangle;
+        private CEllipse objEllipse;
 
-        private List<Figure> figures;
-        public PrimerPantalla()
+        public void drawScreen(Graphics g, PointF center, int paso)
         {
-            figures = new List<Figure>();
-        }
-        public void drawScreen(Graphics mGraph, PointF center, int pasosMax){
+            // Dibujar triángulos en espiral azul
+            objTriangle = new CTriangle(center);
+            objTriangle.ReadData(5, 5, 5);
+            objTriangle.rebootAll(center);
 
-            //Creo todas la figuras iniciales
-            ObjTriangle = new CTriangle(center);
-            ObjTriangle.ReadData(5, 5, 5);
-            ObjTriangle.rebootAll(center);
-
-
-
-            for (int i = 0; i < pasosMax; i++)
+            float triAngleStep = 360f / Math.Max(1, paso);
+            float triScale = 1f + paso * 0.05f;
+            for (int i = 0; i < paso; i++)
             {
-                ObjTriangle.drawFigure(mGraph, Color.Blue);
-                ObjTriangle.scale(5);
-                ObjTriangle.createFigure();
-
+                objTriangle.rotationGrade = i * triAngleStep;
+                objTriangle.scaleF = triScale;
+                objTriangle.createFigure();
+                using (var pen = new Pen(Color.FromArgb(200, Color.CornflowerBlue), 2))
+                {
+                    g.DrawPolygon(pen, objTriangle.GetPoints());
+                }
             }
 
-            ObjTriangle.rebootAll(center);  
+            // Psicodelia de elipses: estela que crece y se encoge
+            objEllipse = new CEllipse(center);
+            objEllipse.ReadData(9, 5);
 
-            ObjTriangle.translate(100, 0);
-            ObjTriangle.roteGrade(90);
-            ObjTriangle.createFigure();
-
-            for (int i = 0; i < pasosMax; i++)
+            float maxScaleOsc = 50f; // factor máximo de escala
+            for (int j = 0; j < paso; j++)
             {
-                ObjTriangle.drawFigure(mGraph, Color.Red);
-                ObjTriangle.scale(5);
-                ObjTriangle.createFigure();
+                float t = j / (float)Math.Max(1, paso - 1); // 0..1
+
+                // Oscilación de escala: sube hasta max y vuelve
+                float scaleOsc = 1f + (float)Math.Sin(t * Math.PI) * maxScaleOsc;
+                objEllipse.rebootAll(center);
+                objEllipse.scaleF = scaleOsc;
+
+                // Rotación continua
+                objEllipse.roteGrade(t * 360f * 2); // dos vueltas completas
+
+                // Translación vertical oscilante para dar dinamismo
+                float offsetY = (float)Math.Cos(t * Math.PI * 2) * 50f;
+                objEllipse.translate(0, offsetY);
+
+                // Color variable: cambia matiz y opacidad según t
+                int alpha = (int)(200 * (1 - t));
+                Color col = Color.FromArgb(alpha,
+                    (int)(100 + 155 * t),   // R crece con t
+                    (int)(50 + 205 * (1 - t)), // G decrece
+                    200);                   // B fijo
+
+                objEllipse.createFigure();
+                using (var pen = new Pen(col, 3))
+                {
+                    g.DrawPolygon(pen, objEllipse.GetPoints());
+                }
             }
-
-            ObjTriangle.rebootAll(center);
-
-            ObjTriangle.translate(-100, 0);
-            ObjTriangle.roteGrade(-90);
-            ObjTriangle.createFigure();
-            ObjTriangle.drawFigure(mGraph, Color.Green);
-
-            for (int i = 0; i < pasosMax; i++)
-            {
-                ObjTriangle.scale(5);
-                ObjTriangle.createFigure();
-                ObjTriangle.drawFigure(mGraph, Color.Green);
-            }
-
-
-            ObjTriangle.rebootAll(center);
-
-            for (int i = 0; i < pasosMax; i++)
-            {
-                ObjTriangle.roteGrade(5);
-                ObjTriangle.translate(50, 0);
-                ObjTriangle.createFigure();
-                ObjTriangle.drawFigure(mGraph, Color.Yellow);
-            }
-
-            ObjEllipse = new CEllipse(center);
-            ObjEllipse.ReadData(9, 5);
-            ObjEllipse.translate(100, 0);
-
-            for (int i = 0; i < pasosMax; i++)
-            {
-                ObjEllipse.drawFigure(mGraph, Color.Purple);
-                ObjEllipse.roteGrade(60);
-                ObjEllipse.translate(0,20);
-            }
-
-            ObjEllipse.rebootAll(center);
-            ObjEllipse.translate(-100, 0);
-            ObjEllipse.roteGrade(-10);
-            ObjEllipse.drawFigure(mGraph, Color.Purple);
-
-            ObjRombo = new CRombo(center);
-            ObjRombo.ReadData(9, 5);
-            ObjRombo.translate(0, 100);
-            ObjRombo.roteGrade(60);
-            ObjRombo.createFigure();
-            ObjRombo.drawFigure(mGraph, Color.Orange);
-
-            ObjRombo.rebootAll(center);
-            ObjRombo.ReadData(5, 5);
-            ObjRombo.translate(0, -59);
-            ObjRombo.createFigure();
-            ObjRombo.drawFigure(mGraph, Color.Orange);
-
-            ObjEllipse.ReadData(7, 5);
-            ObjEllipse.rebootAll(center);
-            ObjEllipse.translate(0, -60);
-            ObjEllipse.drawFigure(mGraph, Color.Orange);
-
-            ObjEllipse.rebootAll(center);
-            ObjEllipse.translate(0, 60);
-            ObjEllipse.drawFigure(mGraph, Color.Orange);
-
-            ObjEllipse.rebootAll(center);
-            ObjEllipse.translate(60, 0);
-            ObjEllipse.roteGrade(90);
-            ObjEllipse.drawFigure(mGraph, Color.Orange);
-
-            ObjEllipse.rebootAll(center);
-            ObjEllipse.translate(-60, 0);
-            ObjEllipse.roteGrade(90);
-            ObjEllipse.drawFigure(mGraph, Color.Orange);
         }
 
         public void Clear()
         {
-            figures.Clear();
-            ObjTriangle = null;
+            // No hay estado persistente que limpiar.
         }
     }
 }

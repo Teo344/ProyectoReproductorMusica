@@ -1,126 +1,101 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
+﻿using ProyectoReproductorMusica.Figuras;
+using ProyectoReproductorMusica.Interfaces;
+using System;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace ProyectoReproductorMusica
 {
+    using ProyectoReproductorMusica.Animaciones;
+    using ProyectoReproductorMusica.Interfaces;
+    using System.Diagnostics;
+    using System.Drawing;
+    using System.Windows.Forms;
+
     public partial class FrmReproductor : Form
     {
+        private IAnimacion[] escenas;
+        private int indiceEscena = 0;
+        private int pasoActual = 0;
+        private readonly int maxPasos = 300;       // 600 pasos
 
-        Timer delayTimer = new Timer();
-        ProyectoReproductorMusica.Pantallas.PrimerPantalla pantalla = new ProyectoReproductorMusica.Pantallas.PrimerPantalla();
-        bool mostrarFigura = false;
-        int pasoActual = 0;
-        int maxPasos = 50;
-        Stopwatch runtimeWatch = new Stopwatch();
-        const int DURATION_MS = 20_000;  // 20 segundos
-        Timer animTimer = new Timer();
-
+        private Timer animTimer = new Timer();
 
         public FrmReproductor()
         {
             InitializeComponent();
+            // Configurar timer de animación
+            animTimer.Interval = 50; // ~20 FPS
             animTimer.Tick += AnimTimer_Tick;
-            delayTimer.Tick += DelayTimer_Tick;
+
+            // Inicializar escenas
+            escenas = new IAnimacion[]
+            {
+            new EllipseAnimacion(maxPasos),
+            new TriangleAnimacion(200),
+            new RhombusAnimacion(maxPasos)
+            };
+
         }
-        private void DelayTimer_Tick(object sender, EventArgs e)
+
+        private void FrmReproductor_Load(object sender, System.EventArgs e)
         {
-            delayTimer.Stop();
-            pasoActual = 0;
-            mostrarFigura = true;
-            animTimer.Interval = 100;
-            // Arrancamos el cronómetro
-            runtimeWatch.Restart();
+            NextScene();
             animTimer.Start();
         }
 
-        private void AnimTimer_Tick(object sender, EventArgs e)
+        private void NextScene()
         {
-            if (runtimeWatch.ElapsedMilliseconds >= DURATION_MS)
-            {
-                animTimer.Stop();
-                pantalla.Clear();
-                mostrarFigura = false;
-                return;
-            }
+            pasoActual = 0;
+            escenas[indiceEscena].Start();
+        }
 
-            // Avanzamos un paso
+        private void AnimTimer_Tick(object sender, System.EventArgs e)
+        {
             pasoActual++;
+            var escena = escenas[indiceEscena];
+            escena.Update(pasoActual);
 
-            // Si completamos un ciclo, lo reiniciamos
-            if (pasoActual > maxPasos)
+            if (escena.IsFinished)
             {
-                pasoActual = 0;
-                pantalla.Clear();
+                escena.Clear();
+                indiceEscena = (indiceEscena + 1) % escenas.Length;
+                NextScene();
             }
 
             picCanvas.Invalidate();
-        }
-
-        private void FrmReproductor_Load(object sender, EventArgs e)
-        {
-            delayTimer.Interval =2000; 
-            delayTimer.Start();
         }
 
         private void picCanvas_Paint(object sender, PaintEventArgs e)
         {
-            PointF center = new PointF(picCanvas.Width / 2f, picCanvas.Height / 2f);
-            if (mostrarFigura)
-            {
-                pantalla.drawScreen(e.Graphics, center, pasoActual);
-            }
+            var center = new PointF(picCanvas.Width / 2f, picCanvas.Height / 2f);
+            escenas[indiceEscena].Draw(e.Graphics, center);
         }
 
-        private void picPause_Click(object sender, EventArgs e)
+        private void picPause_Click(object sender, System.EventArgs e)
         {
             animTimer.Stop();
         }
 
-        private void picPlay_Click(object sender, EventArgs e)
+        private void picPlay_Click(object sender, System.EventArgs e)
         {
-            if (pasoActual < maxPasos)
-            {
+            if (!escenas[indiceEscena].IsFinished)
                 animTimer.Start();
-            }
         }
 
-        private void picForward_Click(object sender, EventArgs e)
-        {
-            pasoActual += 5;
-            if (pasoActual > maxPasos) pasoActual = maxPasos;
-            picCanvas.Invalidate();
-        }
-
-        private void picBack_Click(object sender, EventArgs e)
-        {
-            pasoActual -= 5;
-            if (pasoActual < 0) pasoActual = 0;
-            picCanvas.Invalidate();
-        }
-
-        private void picFinish_Click(object sender, EventArgs e)
+        private void picFinish_Click(object sender, System.EventArgs e)
         {
             animTimer.Stop();
+            escenas[indiceEscena].Clear();
             pasoActual = 0;
-            pantalla.Clear();
             picCanvas.Invalidate();
         }
-        private void picHome_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            using (FrmHome frm = new FrmHome())
-            {
-                frm.ShowDialog(); // Abres el nuevo formulario de forma modal
-            }
 
+        private void picHome_Click(object sender, System.EventArgs e)
+        {
+            // Volver a FrmHome
+            this.Hide();
+            using (var frm = new FrmHome())
+                frm.ShowDialog();
             this.Close();
         }
     }
