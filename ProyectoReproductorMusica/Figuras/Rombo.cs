@@ -18,8 +18,6 @@ namespace ProyectoReproductorMusica.Figuras
         {
             mDMayor = 0.0f; mDMenor = 0.0f;
         }
-
-
         public void ReadData(float mayor, float menor)
         {
             mDMayor = mayor;
@@ -62,8 +60,5 @@ namespace ProyectoReproductorMusica.Figuras
             rebootScale();
             createFigure();
         }
-
-
-
     }
     }

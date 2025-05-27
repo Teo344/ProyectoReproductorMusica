@@ -18,13 +18,10 @@ namespace ProyectoReproductorMusica.Pantallas
         CRombo ObjRombo;
 
         private List<Figure> figures;
-
         public PrimerPantalla()
         {
             figures = new List<Figure>();
         }
-
-
         public void drawScreen(Graphics mGraph, PointF center, int pasosMax){
 
             //Creo todas la figuras iniciales
@@ -134,12 +131,5 @@ namespace ProyectoReproductorMusica.Pantallas
             figures.Clear();
             ObjTriangle = null;
         }
-
-
     }
-
-
-
-
-
 }

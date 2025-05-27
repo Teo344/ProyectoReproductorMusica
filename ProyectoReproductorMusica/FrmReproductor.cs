@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -17,7 +18,9 @@ namespace ProyectoReproductorMusica
         ProyectoReproductorMusica.Pantallas.PrimerPantalla pantalla = new ProyectoReproductorMusica.Pantallas.PrimerPantalla();
         bool mostrarFigura = false;
         int pasoActual = 0;
-        int maxPasos = 10;
+        int maxPasos = 50;
+        Stopwatch runtimeWatch = new Stopwatch();
+        const int DURATION_MS = 20_000;  // 20 segundos
         Timer animTimer = new Timer();
 
 
@@ -29,25 +32,35 @@ namespace ProyectoReproductorMusica
         }
         private void DelayTimer_Tick(object sender, EventArgs e)
         {
-            delayTimer.Stop(); 
+            delayTimer.Stop();
             pasoActual = 0;
-            mostrarFigura = true; // <- ACTIVA EL DIBUJO
-            animTimer.Interval = 500; // medio segundo por paso
-            animTimer.Tick += AnimTimer_Tick;
+            mostrarFigura = true;
+            animTimer.Interval = 100;
+            // Arrancamos el cronómetro
+            runtimeWatch.Restart();
             animTimer.Start();
         }
 
-
         private void AnimTimer_Tick(object sender, EventArgs e)
         {
-            pasoActual++;
-            if (pasoActual > maxPasos)
+            if (runtimeWatch.ElapsedMilliseconds >= DURATION_MS)
             {
                 animTimer.Stop();
                 pantalla.Clear();
-                pasoActual = 0;
-
+                mostrarFigura = false;
+                return;
             }
+
+            // Avanzamos un paso
+            pasoActual++;
+
+            // Si completamos un ciclo, lo reiniciamos
+            if (pasoActual > maxPasos)
+            {
+                pasoActual = 0;
+                pantalla.Clear();
+            }
+
             picCanvas.Invalidate();
         }
 
@@ -64,9 +77,6 @@ namespace ProyectoReproductorMusica
             {
                 pantalla.drawScreen(e.Graphics, center, pasoActual);
             }
-
-
-
         }
 
         private void picPause_Click(object sender, EventArgs e)
@@ -103,8 +113,6 @@ namespace ProyectoReproductorMusica
             pantalla.Clear();
             picCanvas.Invalidate();
         }
-
-
         private void picHome_Click(object sender, EventArgs e)
         {
             this.Hide();
@@ -115,12 +123,5 @@ namespace ProyectoReproductorMusica
 
             this.Close();
         }
-
-
-
-
     }
-
-
-
 }
