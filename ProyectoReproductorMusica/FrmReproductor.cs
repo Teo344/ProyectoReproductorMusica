@@ -33,7 +33,8 @@ namespace ProyectoReproductorMusica
             new EllipseAnimacion(maxPasos),
             new TriangleAnimacion(200),
             new RhombusAnimacion(maxPasos),
-            new StarAnimacion(maxPasos)
+            new StarAnimacion(maxPasos),
+            new DesintegracionAnimacion(200),
             };
 
         }

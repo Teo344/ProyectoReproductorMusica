@@ -73,8 +73,6 @@ namespace ProyectoReproductorMusica.Figuras
 
             return new PointF(xNew, yNew);
         }
-
-
         public virtual void drawFigure(Graphics g, Color color)
         {
             // Implementación de la figura

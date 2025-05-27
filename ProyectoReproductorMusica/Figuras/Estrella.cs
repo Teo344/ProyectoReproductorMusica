@@ -13,8 +13,8 @@ namespace ProyectoReproductorMusica.Figuras
         public CEstrella(PointF position) : base(position)
         {
             numPuntas = 5;
-            radioInterno = 20f;
-            radioExterno = 40f;
+            radioInterno = 10f;
+            radioExterno = 20f;
         }
 
         public void ReadData(int puntas, float rInterno, float rExterno)
