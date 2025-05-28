@@ -36,12 +36,7 @@ namespace ProyectoReproductorMusica
             barraProgreso.Configurar(escenas.Length, maxPasos);
 
         }
-        // Método para reproducir música
-        private void ReproducirMusica(string rutaArchivo)
-        {
-            wmpPlayer.URL = rutaArchivo;
-            wmpPlayer.Ctlcontrols.play();
-        }
+
 
         // Método para pausar música
         private void PausarMusica()
@@ -184,8 +179,14 @@ namespace ProyectoReproductorMusica
             escenas[indiceEscena].Clear();
             pasoActual = 0;
             indiceEscena = 0;
-            NextScene();   
-            animTimer.Start(); 
+
+            DetenerMusica();
+            wmpPlayer.Ctlcontrols.currentPosition = 0;
+            wmpPlayer.Ctlcontrols.play();
+
+            NextScene();
+
+            animTimer.Start();
             picCanvas.Invalidate();
             picBarra.Invalidate();
 
