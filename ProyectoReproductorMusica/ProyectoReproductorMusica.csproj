@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Animaciones\BarraProgresoEscenas.cs" />
     <Compile Include="Animaciones\DesintegracionAnimacion.cs" />
     <Compile Include="Animaciones\EllipseAnimacion.cs" />
     <Compile Include="Animaciones\RhombusAnimacion.cs" />

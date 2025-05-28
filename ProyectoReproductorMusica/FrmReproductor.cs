@@ -13,6 +13,8 @@ namespace ProyectoReproductorMusica
         private int pasoActual = 0;
         private readonly int maxPasos = 300;
         private Timer animTimer = new Timer();
+        private BarraProgresoEscenas barraProgreso;
+
 
         public FrmReproductor()
         {
@@ -28,6 +30,9 @@ namespace ProyectoReproductorMusica
                 new StarAnimacion(maxPasos),
                 new DesintegracionAnimacion(200),
             };
+            barraProgreso = new BarraProgresoEscenas(picBarra);
+            barraProgreso.Configurar(escenas.Length, maxPasos);
+
         }
 
         private void FrmReproductor_Load(object sender, EventArgs e)
@@ -47,7 +52,7 @@ namespace ProyectoReproductorMusica
             pasoActual++;
             var escena = escenas[indiceEscena];
             escena.Update(pasoActual);
-
+            barraProgreso.Actualizar(indiceEscena, pasoActual);
             if (escena.IsFinished)
             {
                 escena.Clear();
@@ -56,6 +61,7 @@ namespace ProyectoReproductorMusica
             }
 
             picCanvas.Invalidate();
+            picBarra.Invalidate();
         }
 
         private void picCanvas_Paint(object sender, PaintEventArgs e)
@@ -77,24 +83,40 @@ namespace ProyectoReproductorMusica
 
         private void picForward_Click(object sender, EventArgs e)
         {
-            // Cambia a la siguiente escena y la inicia de inmediato
-            animTimer.Stop();
-            escenas[indiceEscena].Clear();
-            indiceEscena = (indiceEscena + 1) % escenas.Length;
-            NextScene();
-            animTimer.Start();
-            picCanvas.Invalidate();
+            if (indiceEscena < escenas.Length - 1)
+            {
+                animTimer.Stop();
+                escenas[indiceEscena].Clear();
+
+                indiceEscena++;
+                pasoActual = 0;
+                barraProgreso.Actualizar(indiceEscena, pasoActual);
+                NextScene();
+
+                animTimer.Start();
+                picCanvas.Invalidate();
+                picBarra.Invalidate();
+            }
+
         }
 
         private void picBack_Click(object sender, EventArgs e)
         {
-            // Cambia a la escena anterior y la inicia de inmediato
-            animTimer.Stop();
-            escenas[indiceEscena].Clear();
-            indiceEscena = (indiceEscena - 1 + escenas.Length) % escenas.Length;
-            NextScene();
-            animTimer.Start();
-            picCanvas.Invalidate();
+            if (indiceEscena > 0)
+            {
+                animTimer.Stop();
+                escenas[indiceEscena].Clear();
+
+                indiceEscena--;
+                pasoActual = 0;
+                barraProgreso.Actualizar(indiceEscena, pasoActual);
+                NextScene();
+
+                animTimer.Start();
+                picCanvas.Invalidate();
+                picBarra.Invalidate();
+            }
+
         }
 
         private void picFinish_Click(object sender, EventArgs e)
@@ -102,10 +124,12 @@ namespace ProyectoReproductorMusica
             animTimer.Stop();
             escenas[indiceEscena].Clear();
             pasoActual = 0;
-            indiceEscena = 0; // Regresar a la primera animación
-            NextScene();      // Iniciar la primera escena
-            animTimer.Start(); // Empezar la animación de nuevo
+            indiceEscena = 0;
+            NextScene();   
+            animTimer.Start(); 
             picCanvas.Invalidate();
+            picBarra.Invalidate();
+
         }
 
         private void picHome_Click(object sender, EventArgs e)
