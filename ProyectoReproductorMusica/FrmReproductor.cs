@@ -30,7 +30,10 @@ namespace ProyectoReproductorMusica
                 new TriangleAnimacion(200),
                 new RhombusAnimacion(maxPasos),
                 new StarAnimacion(maxPasos),
-                new DesintegracionAnimacion(200),
+                new HexaCruzAnimacion(maxPasos),
+                new ArrowStarAnimacion(maxPasos),
+                new LatidoAnimacion(maxPasos),
+                new CruzGiratoriaAnimacion(maxPasos)
             };
             barraProgreso = new BarraProgresoEscenas(picBarra);
             barraProgreso.Configurar(escenas.Length, maxPasos);

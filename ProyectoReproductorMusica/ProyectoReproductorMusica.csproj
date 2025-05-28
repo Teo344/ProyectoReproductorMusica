@@ -46,15 +46,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Animaciones\ArrowStarAnimacion.cs" />
     <Compile Include="Animaciones\BarraProgresoEscenas.cs" />
-    <Compile Include="Animaciones\DesintegracionAnimacion.cs" />
+    <Compile Include="Animaciones\CruzGiratoriaAnimacion.cs" />
     <Compile Include="Animaciones\EllipseAnimacion.cs" />
+    <Compile Include="Animaciones\HexaCruzAnimacion.cs" />
+    <Compile Include="Animaciones\LatidoAnimacion.cs" />
     <Compile Include="Animaciones\RhombusAnimacion.cs" />
     <Compile Include="Animaciones\StarAnimacion.cs" />
     <Compile Include="Animaciones\TrianguleAnimacion.cs" />
+    <Compile Include="Figuras\Cruz.cs" />
     <Compile Include="Figuras\Elipse.cs" />
     <Compile Include="Figuras\Estrella.cs" />
     <Compile Include="Figuras\Figura.cs" />
+    <Compile Include="Figuras\Flecha.cs" />
+    <Compile Include="Figuras\Hexagono.cs" />
     <Compile Include="Figuras\Rombo.cs" />
     <Compile Include="Figuras\Triangulo.cs" />
     <Compile Include="FrmHome.cs">
