@@ -48,9 +48,10 @@
             // picCanvas
             // 
             this.picCanvas.BackColor = System.Drawing.SystemColors.Desktop;
-            this.picCanvas.Location = new System.Drawing.Point(60, 27);
+            this.picCanvas.Location = new System.Drawing.Point(45, 22);
+            this.picCanvas.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.picCanvas.Name = "picCanvas";
-            this.picCanvas.Size = new System.Drawing.Size(1180, 400);
+            this.picCanvas.Size = new System.Drawing.Size(885, 325);
             this.picCanvas.TabIndex = 0;
             this.picCanvas.TabStop = false;
             this.picCanvas.Paint += new System.Windows.Forms.PaintEventHandler(this.picCanvas_Paint);
@@ -59,9 +60,10 @@
             // 
             this.picFinish.BackColor = System.Drawing.Color.Transparent;
             this.picFinish.Image = ((System.Drawing.Image)(resources.GetObject("picFinish.Image")));
-            this.picFinish.Location = new System.Drawing.Point(1000, 552);
+            this.picFinish.Location = new System.Drawing.Point(750, 448);
+            this.picFinish.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.picFinish.Name = "picFinish";
-            this.picFinish.Size = new System.Drawing.Size(94, 89);
+            this.picFinish.Size = new System.Drawing.Size(70, 72);
             this.picFinish.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picFinish.TabIndex = 2;
             this.picFinish.TabStop = false;
@@ -71,31 +73,36 @@
             // 
             this.picBack.BackColor = System.Drawing.Color.Transparent;
             this.picBack.Image = ((System.Drawing.Image)(resources.GetObject("picBack.Image")));
-            this.picBack.Location = new System.Drawing.Point(459, 552);
+            this.picBack.Location = new System.Drawing.Point(344, 448);
+            this.picBack.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.picBack.Name = "picBack";
-            this.picBack.Size = new System.Drawing.Size(100, 89);
+            this.picBack.Size = new System.Drawing.Size(75, 72);
             this.picBack.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picBack.TabIndex = 3;
             this.picBack.TabStop = false;
+            this.picBack.Click += new System.EventHandler(this.picBack_Click);
             // 
             // picForward
             // 
             this.picForward.BackColor = System.Drawing.Color.Transparent;
             this.picForward.Image = ((System.Drawing.Image)(resources.GetObject("picForward.Image")));
-            this.picForward.Location = new System.Drawing.Point(860, 552);
+            this.picForward.Location = new System.Drawing.Point(645, 448);
+            this.picForward.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.picForward.Name = "picForward";
-            this.picForward.Size = new System.Drawing.Size(112, 89);
+            this.picForward.Size = new System.Drawing.Size(84, 72);
             this.picForward.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picForward.TabIndex = 4;
             this.picForward.TabStop = false;
+            this.picForward.Click += new System.EventHandler(this.picForward_Click);
             // 
             // picPause
             // 
             this.picPause.BackColor = System.Drawing.Color.Transparent;
             this.picPause.Image = ((System.Drawing.Image)(resources.GetObject("picPause.Image")));
-            this.picPause.Location = new System.Drawing.Point(721, 552);
+            this.picPause.Location = new System.Drawing.Point(541, 448);
+            this.picPause.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.picPause.Name = "picPause";
-            this.picPause.Size = new System.Drawing.Size(105, 89);
+            this.picPause.Size = new System.Drawing.Size(79, 72);
             this.picPause.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picPause.TabIndex = 5;
             this.picPause.TabStop = false;
@@ -105,9 +112,10 @@
             // 
             this.picHome.BackColor = System.Drawing.Color.Transparent;
             this.picHome.Image = ((System.Drawing.Image)(resources.GetObject("picHome.Image")));
-            this.picHome.Location = new System.Drawing.Point(335, 552);
+            this.picHome.Location = new System.Drawing.Point(251, 448);
+            this.picHome.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.picHome.Name = "picHome";
-            this.picHome.Size = new System.Drawing.Size(100, 89);
+            this.picHome.Size = new System.Drawing.Size(75, 72);
             this.picHome.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picHome.TabIndex = 6;
             this.picHome.TabStop = false;
@@ -117,9 +125,10 @@
             // 
             this.picPlay.BackColor = System.Drawing.Color.Transparent;
             this.picPlay.Image = ((System.Drawing.Image)(resources.GetObject("picPlay.Image")));
-            this.picPlay.Location = new System.Drawing.Point(591, 552);
+            this.picPlay.Location = new System.Drawing.Point(443, 448);
+            this.picPlay.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.picPlay.Name = "picPlay";
-            this.picPlay.Size = new System.Drawing.Size(100, 89);
+            this.picPlay.Size = new System.Drawing.Size(75, 72);
             this.picPlay.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picPlay.TabIndex = 7;
             this.picPlay.TabStop = false;
@@ -127,10 +136,10 @@
             // 
             // FrmReproductor
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.ClientSize = new System.Drawing.Size(1282, 653);
+            this.ClientSize = new System.Drawing.Size(962, 531);
             this.Controls.Add(this.picPlay);
             this.Controls.Add(this.picHome);
             this.Controls.Add(this.picPause);
@@ -138,6 +147,7 @@
             this.Controls.Add(this.picBack);
             this.Controls.Add(this.picFinish);
             this.Controls.Add(this.picCanvas);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "FrmReproductor";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FrmReproductor";
