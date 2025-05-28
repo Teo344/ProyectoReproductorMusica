@@ -102,6 +102,9 @@ namespace ProyectoReproductorMusica
             animTimer.Stop();
             escenas[indiceEscena].Clear();
             pasoActual = 0;
+            indiceEscena = 0; // Regresar a la primera animación
+            NextScene();      // Iniciar la primera escena
+            animTimer.Start(); // Empezar la animación de nuevo
             picCanvas.Invalidate();
         }
 
