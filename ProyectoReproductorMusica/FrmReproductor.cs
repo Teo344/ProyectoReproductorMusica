@@ -3,6 +3,8 @@ using ProyectoReproductorMusica.Interfaces;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using AxWMPLib; // Para el control Windows Media Player
+
 
 namespace ProyectoReproductorMusica
 {
@@ -15,13 +17,13 @@ namespace ProyectoReproductorMusica
         private Timer animTimer = new Timer();
         private BarraProgresoEscenas barraProgreso;
 
-
         public FrmReproductor()
         {
             InitializeComponent();
             animTimer.Interval = 50; // ~20 FPS
             animTimer.Tick += AnimTimer_Tick;
 
+            wmpPlayer.URL = "C:\\Users\\MSI\\Desktop\\Imagenes\\Audios\\Las Avispas.mp3";
             escenas = new IAnimacion[]
             {
                 new EllipseAnimacion(maxPasos),
@@ -34,6 +36,46 @@ namespace ProyectoReproductorMusica
             barraProgreso.Configurar(escenas.Length, maxPasos);
 
         }
+        // Método para reproducir música
+        private void ReproducirMusica(string rutaArchivo)
+        {
+            wmpPlayer.URL = rutaArchivo;
+            wmpPlayer.Ctlcontrols.play();
+        }
+
+        // Método para pausar música
+        private void PausarMusica()
+        {
+            wmpPlayer.Ctlcontrols.pause();
+        }
+
+        // Método para detener música
+        private void DetenerMusica()
+        {
+            wmpPlayer.Ctlcontrols.stop();
+        }
+
+        private void RetrocederMusica(int segundos = 5)
+        {
+            double nuevaPosicion = wmpPlayer.Ctlcontrols.currentPosition - segundos;
+            if (nuevaPosicion < 0)
+                nuevaPosicion = 0;  // No ir antes del inicio
+
+            wmpPlayer.Ctlcontrols.currentPosition = nuevaPosicion;
+        }
+
+        private void AvanzarMusica(int segundos = 5)
+        {
+            double duracion = wmpPlayer.currentMedia?.duration ?? 0;
+            double nuevaPosicion = wmpPlayer.Ctlcontrols.currentPosition + segundos;
+
+            if (nuevaPosicion > duracion)
+                nuevaPosicion = duracion;  // No ir más allá del final
+
+            wmpPlayer.Ctlcontrols.currentPosition = nuevaPosicion;
+        }
+
+
 
         private void FrmReproductor_Load(object sender, EventArgs e)
         {
@@ -56,7 +98,20 @@ namespace ProyectoReproductorMusica
             if (escena.IsFinished)
             {
                 escena.Clear();
-                indiceEscena = (indiceEscena + 1) % escenas.Length;
+
+                if (indiceEscena == escenas.Length - 1)
+                {
+                    // Última escena finalizada: reiniciar a la primera
+                    indiceEscena = 0;
+                    // Reiniciar música a inicio
+                    wmpPlayer.Ctlcontrols.currentPosition = 0;
+                    wmpPlayer.Ctlcontrols.play();
+                }
+                else
+                {
+                    indiceEscena++;
+                }
+
                 NextScene();
             }
 
@@ -72,13 +127,17 @@ namespace ProyectoReproductorMusica
 
         private void picPause_Click(object sender, EventArgs e)
         {
+            PausarMusica();
             animTimer.Stop();
         }
 
         private void picPlay_Click(object sender, EventArgs e)
         {
             if (!escenas[indiceEscena].IsFinished)
+            {
                 animTimer.Start();
+                wmpPlayer.Ctlcontrols.play();  // Reanuda la música desde donde quedó
+            }
         }
 
         private void picForward_Click(object sender, EventArgs e)
@@ -87,7 +146,7 @@ namespace ProyectoReproductorMusica
             {
                 animTimer.Stop();
                 escenas[indiceEscena].Clear();
-
+                AvanzarMusica(5);
                 indiceEscena++;
                 pasoActual = 0;
                 barraProgreso.Actualizar(indiceEscena, pasoActual);
@@ -106,7 +165,7 @@ namespace ProyectoReproductorMusica
             {
                 animTimer.Stop();
                 escenas[indiceEscena].Clear();
-
+                RetrocederMusica(5);
                 indiceEscena--;
                 pasoActual = 0;
                 barraProgreso.Actualizar(indiceEscena, pasoActual);

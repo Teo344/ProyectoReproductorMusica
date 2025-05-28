@@ -37,6 +37,7 @@
             this.picHome = new System.Windows.Forms.PictureBox();
             this.picPlay = new System.Windows.Forms.PictureBox();
             this.picBarra = new System.Windows.Forms.PictureBox();
+            this.wmpPlayer = new AxWMPLib.AxWindowsMediaPlayer();
             ((System.ComponentModel.ISupportInitialize)(this.picCanvas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picFinish)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBack)).BeginInit();
@@ -45,6 +46,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.picHome)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picPlay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBarra)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.wmpPlayer)).BeginInit();
             this.SuspendLayout();
             // 
             // picCanvas
@@ -144,12 +146,23 @@
             this.picBarra.TabIndex = 8;
             this.picBarra.TabStop = false;
             // 
+            // wmpPlayer
+            // 
+            this.wmpPlayer.Enabled = true;
+            this.wmpPlayer.Location = new System.Drawing.Point(38, 607);
+            this.wmpPlayer.Name = "wmpPlayer";
+            this.wmpPlayer.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("wmpPlayer.OcxState")));
+            this.wmpPlayer.Size = new System.Drawing.Size(10, 10);
+            this.wmpPlayer.TabIndex = 9;
+            this.wmpPlayer.Visible = false;
+            // 
             // FrmReproductor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(1283, 654);
+            this.Controls.Add(this.wmpPlayer);
             this.Controls.Add(this.picBarra);
             this.Controls.Add(this.picPlay);
             this.Controls.Add(this.picHome);
@@ -171,6 +184,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.picHome)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picPlay)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBarra)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.wmpPlayer)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -185,5 +199,6 @@
         private System.Windows.Forms.PictureBox picHome;
         private System.Windows.Forms.PictureBox picPlay;
         private System.Windows.Forms.PictureBox picBarra;
+        private AxWMPLib.AxWindowsMediaPlayer wmpPlayer;
     }
 }
