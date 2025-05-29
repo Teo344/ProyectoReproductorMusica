@@ -47,7 +47,6 @@ namespace ProyectoReproductorMusica.Animaciones
             {
                 Rectangle bloque = new Rectangle(i * anchoBloque, 0, anchoBloque, altoBloque);
 
-                // Fondo gris claro
                 e.Graphics.FillRectangle(Brushes.Black, bloque);
 
                 if (i < indiceEscena)

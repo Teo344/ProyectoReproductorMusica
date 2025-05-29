@@ -20,19 +20,19 @@ namespace ProyectoReproductorMusica
         public FrmReproductor()
         {
             InitializeComponent();
-            animTimer.Interval = 50; // ~20 FPS
+            animTimer.Interval = 50;
             animTimer.Tick += AnimTimer_Tick;
 
-            wmpPlayer.URL = "C:\\Users\\MSI\\Desktop\\Imagenes\\Audios\\Las Avispas.mp3";
+            wmpPlayer.URL = "C:\\Users\\MSI\\Desktop\\Imagenes\\Audios\\Grafica.mp3";
             escenas = new IAnimacion[]
             {
                 new EllipseAnimacion(maxPasos),
-                new TriangleAnimacion(maxPasos),
-                new RhombusAnimacion(maxPasos),
+                new TriangleAnimacion(250),
+                new RhombusAnimacion(200),
                 new StarAnimacion(maxPasos),
                 new HexaCruzAnimacion(maxPasos),
                 new ArrowStarAnimacion(maxPasos),
-                new LatidoAnimacion(maxPasos),
+                new LatidoAnimacion(150),
                 new CruzGiratoriaAnimacion(maxPasos)
             };
             barraProgreso = new BarraProgresoEscenas(picBarra);
@@ -57,7 +57,7 @@ namespace ProyectoReproductorMusica
         {
             double nuevaPosicion = wmpPlayer.Ctlcontrols.currentPosition - segundos;
             if (nuevaPosicion < 0)
-                nuevaPosicion = 0;  // No ir antes del inicio
+                nuevaPosicion = 0;  
 
             wmpPlayer.Ctlcontrols.currentPosition = nuevaPosicion;
         }
@@ -68,7 +68,7 @@ namespace ProyectoReproductorMusica
             double nuevaPosicion = wmpPlayer.Ctlcontrols.currentPosition + segundos;
 
             if (nuevaPosicion > duracion)
-                nuevaPosicion = duracion;  // No ir más allá del final
+                nuevaPosicion = duracion;  
 
             wmpPlayer.Ctlcontrols.currentPosition = nuevaPosicion;
         }
@@ -99,9 +99,8 @@ namespace ProyectoReproductorMusica
 
                 if (indiceEscena == escenas.Length - 1)
                 {
-                    // Última escena finalizada: reiniciar a la primera
+
                     indiceEscena = 0;
-                    // Reiniciar música a inicio
                     wmpPlayer.Ctlcontrols.currentPosition = 0;
                     wmpPlayer.Ctlcontrols.play();
                 }

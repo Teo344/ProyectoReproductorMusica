@@ -33,7 +33,6 @@ namespace ProyectoReproductorMusica.Figuras
         {
             mPoints.Clear();
 
-            // Lados base
             float a = mSideA;
             float b = mSideB;
             float c = mSideC;

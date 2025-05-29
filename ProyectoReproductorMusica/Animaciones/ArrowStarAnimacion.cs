@@ -41,16 +41,13 @@ namespace ProyectoReproductorMusica.Animaciones
             int trailCount = 6;
             float ringRadius = Math.Min(g.VisibleClipBounds.Width, g.VisibleClipBounds.Height) * 0.3f;
 
-            // Dibujar 3 sets de flecha + estrella en anillo
             for (int m = 0; m < 3; m++)
             {
-                // Centro desplazado circularmente
                 float angleOff = m * 120f * (float)Math.PI / 180f;
                 PointF localCenter = new PointF(
                     center.X + (float)Math.Cos(angleOff) * ringRadius,
                     center.Y + (float)Math.Sin(angleOff) * ringRadius);
 
-                // Flecha con estela psicodélica
                 for (int k = 0; k < trailCount; k++)
                 {
                     float tk = t - k * 0.02f;
@@ -77,7 +74,6 @@ namespace ProyectoReproductorMusica.Animaciones
                         g.DrawPolygon(pen, flecha.GetPoints());
                 }
 
-                // Estrella con estela psicodélica
                 for (int k = 0; k < trailCount; k++)
                 {
                     float tk = t - k * 0.03f;

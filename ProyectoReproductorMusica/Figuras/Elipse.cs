@@ -20,22 +20,17 @@ namespace ProyectoReproductorMusica.Figuras
             mMenor = 0.0f;
         }
 
-        /// <summary>
-        /// Define los semiejes antes de aplicar escala.
-        /// </summary>
         public void ReadData(float mayor, float menor)
         {
             mMayor = mayor;
             mMenor = menor;
         }
 
-        /// <summary>
-        /// Genera los puntos de la elipse escalada y rotada, guardándolos en ellipsePoints.
-        /// </summary>
+
         public void createFigure()
         {
             ellipsePoints.Clear();
-            int numSteps = 360;      // más segmentos = curva más lisa
+            int numSteps = 360;      
             float angleStep = 360f / numSteps;
 
             float a = mMenor * scaleF;
@@ -66,9 +61,7 @@ namespace ProyectoReproductorMusica.Figuras
             }
         }
 
-        /// <summary>
-        /// Reinicia posición, rotación y escala a los valores iniciales.
-        /// </summary>
+
         public void rebootAll(PointF posicion)
         {
             rebootPosition(posicion);
@@ -76,9 +69,7 @@ namespace ProyectoReproductorMusica.Figuras
             rebootScale();
         }
 
-        /// <summary>
-        /// Devuelve un array de puntos para dibujar manualmente si se desea.
-        /// </summary>
+
         public PointF[] GetPoints()
         {
             if (ellipsePoints == null || ellipsePoints.Count == 0)

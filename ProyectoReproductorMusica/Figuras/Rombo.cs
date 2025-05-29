@@ -29,13 +29,11 @@ namespace ProyectoReproductorMusica.Figuras
             float DMayor = mDMayor * scaleF;
             float DMenor = mDMenor * scaleF;
 
-            // Vértices relativos a position
             PointF A = new PointF(position.X, position.Y - DMayor / 2);
             PointF B = new PointF(position.X + DMenor / 2, position.Y);
             PointF C = new PointF(position.X, position.Y + DMayor / 2);
             PointF D = new PointF(position.X - DMenor / 2, position.Y);
 
-            // Aplica rotación si existe
             if (rotationGrade != 0)
             {
                 A = RotatePoint(A);

@@ -46,7 +46,6 @@ namespace ProyectoReproductorMusica.Animaciones
                 float cruzScale = 100f + 15f * (float)Math.Sin(t * Math.PI * 4);
                 float rot = t * 720f;
 
-                // --- ELIPSE: Azul intermitente ---
                 elipse.rebootAll(center);
                 elipse.scaleF = elipseScale;
                 elipse.rebootRotation();
@@ -61,7 +60,6 @@ namespace ProyectoReproductorMusica.Animaciones
                     g.DrawPolygon(penElipse, elipse.GetPoints());
                 }
 
-                // --- CRUZ: cambia de color psicodélico según t ---
                 cruz.rebootAll(center);
                 cruz.scaleF = cruzScale;
                 cruz.roteGrade(rot);

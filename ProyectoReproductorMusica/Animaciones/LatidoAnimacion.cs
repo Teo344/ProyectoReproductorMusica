@@ -46,7 +46,6 @@ namespace ProyectoReproductorMusica.Animaciones
                 float sizeHex = 30f * pulso;
                 float sizeRombo = 18f * pulso;
 
-                // HEXÁGONO CENTRAL (globo ocular)
                 hexagono.rebootAll(center);
                 hexagono.scaleF = sizeHex;
                 hexagono.rebootRotation();
@@ -56,7 +55,6 @@ namespace ProyectoReproductorMusica.Animaciones
                     g.DrawPolygon(penEye, hexagono.GetPoints());
                 }
 
-                // HEXÁGONOS laterales como párpados o contorno
                 PointF left = new PointF(center.X - 35, center.Y);
                 hexagono.rebootAll(left);
                 hexagono.scaleF = sizeHex * 0.8f;
@@ -75,7 +73,6 @@ namespace ProyectoReproductorMusica.Animaciones
                     g.DrawPolygon(penLidR, hexagono.GetPoints());
                 }
 
-                // HEXÁGONOS arriba y abajo como parte del contorno
                 PointF top = new PointF(center.X, center.Y - 25);
                 hexagono.rebootAll(top);
                 hexagono.scaleF = sizeHex * 0.8f;
@@ -94,7 +91,6 @@ namespace ProyectoReproductorMusica.Animaciones
                     g.DrawPolygon(penBot, hexagono.GetPoints());
                 }
 
-                // ROMBO central (iris)
                 rombo.rebootAll(center);
                 rombo.scaleF = sizeRombo;
                 rombo.rebootRotation();
@@ -105,7 +101,6 @@ namespace ProyectoReproductorMusica.Animaciones
                     g.DrawPolygon(penPupil, rombo.GetPoints());
                 }
 
-                // Pupila sólida (círculo en el centro)
                 float eyeSize = 6f * pulso;
                 using (var brush = new SolidBrush(Color.Black))
                 {

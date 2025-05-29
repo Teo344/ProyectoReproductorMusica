@@ -53,26 +53,21 @@ namespace ProyectoReproductorMusica.Animaciones
                 // Reiniciar posición/rotación/escala
                 ellipse.rebootAll(center);
 
-                // Oscilación de escala
                 float maxScaleOsc = 50f;
                 float scaleOsc = 1f + (float)Math.Sin(t * Math.PI) * maxScaleOsc;
                 ellipse.scaleF = scaleOsc;
 
-                // Rotación continua (2 vueltas)
                 ellipse.roteGrade(t * 360f * 2f);
 
-                // Translación vertical oscilante
                 float offsetY = (float)Math.Cos(t * Math.PI * 2f) * 50f;
                 ellipse.translate(0, offsetY);
 
-                // Color psicodélico con alpha variable
                 int alpha = (int)(200 * (1 - t));
                 Color col = Color.FromArgb(alpha,
                     (int)(100 + 155 * t),     // R aumenta
                     (int)(50 + 205 * (1 - t)), // G disminuye
                     200);                      // B fijo
 
-                // Generar y dibujar puntos
                 ellipse.createFigure();
                 using (var pen = new Pen(col, 3))
                 {

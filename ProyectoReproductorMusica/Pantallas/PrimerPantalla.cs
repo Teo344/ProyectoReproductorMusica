@@ -12,7 +12,6 @@ namespace ProyectoReproductorMusica.Pantallas
 
         public void drawScreen(Graphics g, PointF center, int paso)
         {
-            // Dibujar triángulos en espiral azul
             objTriangle = new CTriangle(center);
             objTriangle.ReadData(5, 5, 5);
             objTriangle.rebootAll(center);
@@ -30,24 +29,22 @@ namespace ProyectoReproductorMusica.Pantallas
                 }
             }
 
-            // Psicodelia de elipses: estela que crece y se encoge
             objEllipse = new CEllipse(center);
             objEllipse.ReadData(9, 5);
 
-            float maxScaleOsc = 50f; // factor máximo de escala
+            float maxScaleOsc = 50f; 
             for (int j = 0; j < paso; j++)
             {
                 float t = j / (float)Math.Max(1, paso - 1); // 0..1
 
-                // Oscilación de escala: sube hasta max y vuelve
+
                 float scaleOsc = 1f + (float)Math.Sin(t * Math.PI) * maxScaleOsc;
                 objEllipse.rebootAll(center);
                 objEllipse.scaleF = scaleOsc;
 
-                // Rotación continua
-                objEllipse.roteGrade(t * 360f * 2); // dos vueltas completas
+                objEllipse.roteGrade(t * 360f * 2); 
 
-                // Translación vertical oscilante para dar dinamismo
+
                 float offsetY = (float)Math.Cos(t * Math.PI * 2) * 50f;
                 objEllipse.translate(0, offsetY);
 

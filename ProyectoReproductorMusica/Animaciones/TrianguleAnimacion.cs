@@ -42,7 +42,6 @@ namespace ProyectoReproductorMusica.Animaciones
 
         public void Draw(Graphics g, PointF center)
         {
-            // Parámetro normalizado 0..1
             float t = PasoActual / (float)Math.Max(1, maxPasos);
             // Factor máximo de escala para cubrir pantalla
             float maxScale = Math.Max(g.VisibleClipBounds.Width, g.VisibleClipBounds.Height) / (5f * 2f);

@@ -37,11 +37,11 @@
             this.picCanva2 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.picPlay1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picCanva2)).BeginInit();
@@ -92,11 +92,11 @@
             this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.Font = new System.Drawing.Font("Microsoft YaHei Light", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label4.Location = new System.Drawing.Point(212, 85);
+            this.label4.Location = new System.Drawing.Point(196, 110);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(216, 36);
+            this.label4.Size = new System.Drawing.Size(209, 36);
             this.label4.TabIndex = 5;
-            this.label4.Text = "Binomio de Oro";
+            this.label4.Text = "ñejo y dalmata ";
             // 
             // label3
             // 
@@ -104,16 +104,16 @@
             this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Font = new System.Drawing.Font("Microsoft YaHei Light", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label3.Location = new System.Drawing.Point(221, 28);
+            this.label3.Location = new System.Drawing.Point(212, 33);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(207, 36);
+            this.label3.Size = new System.Drawing.Size(175, 36);
             this.label3.TabIndex = 4;
-            this.label3.Text = "Osito Dormilón";
+            this.label3.Text = "Algo Musical";
             // 
             // picCanva2
             // 
             this.picCanva2.Image = ((System.Drawing.Image)(resources.GetObject("picCanva2.Image")));
-            this.picCanva2.Location = new System.Drawing.Point(461, 90);
+            this.picCanva2.Location = new System.Drawing.Point(430, 76);
             this.picCanva2.Name = "picCanva2";
             this.picCanva2.Size = new System.Drawing.Size(96, 89);
             this.picCanva2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -124,7 +124,7 @@
             // pictureBox3
             // 
             this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
-            this.pictureBox3.Location = new System.Drawing.Point(36, 17);
+            this.pictureBox3.Location = new System.Drawing.Point(17, 17);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(166, 148);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -143,10 +143,34 @@
             this.panel3.Size = new System.Drawing.Size(557, 179);
             this.panel3.TabIndex = 1;
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.BackColor = System.Drawing.Color.Transparent;
+            this.label6.Font = new System.Drawing.Font("Microsoft YaHei Light", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label6.Location = new System.Drawing.Point(221, 98);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(182, 36);
+            this.label6.TabIndex = 6;
+            this.label6.Text = "Paulo Londra";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.Color.Transparent;
+            this.label5.Font = new System.Drawing.Font("Microsoft YaHei Light", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label5.Location = new System.Drawing.Point(212, 30);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(211, 36);
+            this.label5.TabIndex = 5;
+            this.label5.Text = "Nena Maldición";
+            // 
             // picPlay1
             // 
             this.picPlay1.Image = ((System.Drawing.Image)(resources.GetObject("picPlay1.Image")));
-            this.picPlay1.Location = new System.Drawing.Point(458, 87);
+            this.picPlay1.Location = new System.Drawing.Point(420, 73);
             this.picPlay1.Name = "picPlay1";
             this.picPlay1.Size = new System.Drawing.Size(96, 89);
             this.picPlay1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -157,7 +181,7 @@
             // pictureBox2
             // 
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(36, 15);
+            this.pictureBox2.Location = new System.Drawing.Point(17, 14);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(166, 148);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -175,30 +199,6 @@
             this.label2.Size = new System.Drawing.Size(92, 36);
             this.label2.TabIndex = 3;
             this.label2.Text = "Home";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.BackColor = System.Drawing.Color.Transparent;
-            this.label5.Font = new System.Drawing.Font("Microsoft YaHei Light", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label5.Location = new System.Drawing.Point(212, 30);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(211, 36);
-            this.label5.TabIndex = 5;
-            this.label5.Text = "Nena Maldición";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.BackColor = System.Drawing.Color.Transparent;
-            this.label6.Font = new System.Drawing.Font("Microsoft YaHei Light", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label6.Location = new System.Drawing.Point(221, 98);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(182, 36);
-            this.label6.TabIndex = 6;
-            this.label6.Text = "Paulo Londra";
             // 
             // FrmHome
             // 

@@ -40,27 +40,22 @@ namespace ProyectoReproductorMusica.Animaciones
             float t = PasoActual / (float)Math.Max(1, maxPasos);
             int trailCount = 5;
 
-            // Estela de hexágonos psicodélicos
             for (int k = 0; k < trailCount; k++)
             {
                 float tk = t - k * 0.04f;
                 if (tk <= 0) continue;
 
-                // Posición mezclada con rotación de estela
                 float dx = (float)Math.Cos(tk * Math.PI * 2f) * 150f;
                 float dy = (float)Math.Sin(tk * Math.PI * 3f) * 50f;
                 hexagono.rebootAll(new PointF(center.X - dx, center.Y - dy));
 
-                // Escala pulsante y creciente
                 float baseScale = 25f + tk * 100f;
                 float pulse = 1f + (float)Math.Sin(tk * Math.PI * 4f) * 0.2f;
                 hexagono.scaleF = baseScale * pulse;
 
-                // Rotación continua inversa cada línea
                 hexagono.roteGrade((k % 2 == 0 ? 1 : -1) * tk * 360f * 1.5f);
                 hexagono.createFigure();
 
-                // Color con matiz azul-verde y alpha decreciente
                 int alpha = (int)(200 * (1 - k / (float)trailCount));
                 Color colH = Color.FromArgb(alpha,
                     (int)(0 + 200 * tk) % 256,
@@ -73,7 +68,6 @@ namespace ProyectoReproductorMusica.Animaciones
                 }
             }
 
-            // Estela de cruces psicodélicas
             for (int k = 0; k < trailCount; k++)
             {
                 float tk = t - k * 0.05f;
@@ -105,7 +99,6 @@ namespace ProyectoReproductorMusica.Animaciones
 
         public void Clear()
         {
-            // No cleanup needed
         }
     }
 }
