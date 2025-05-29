@@ -27,7 +27,7 @@ namespace ProyectoReproductorMusica
             escenas = new IAnimacion[]
             {
                 new EllipseAnimacion(maxPasos),
-                new TriangleAnimacion(200),
+                new TriangleAnimacion(maxPasos),
                 new RhombusAnimacion(maxPasos),
                 new StarAnimacion(maxPasos),
                 new HexaCruzAnimacion(maxPasos),

@@ -37,49 +37,75 @@ namespace ProyectoReproductorMusica.Animaciones
 
         public void Draw(Graphics g, PointF center)
         {
-            if (PasoActual > maxPasos)
-                return;
-
             float t = PasoActual / (float)Math.Max(1, maxPasos);
+            int trailCount = 6;
+            float ringRadius = Math.Min(g.VisibleClipBounds.Width, g.VisibleClipBounds.Height) * 0.3f;
 
-            float escala = 20f + (float)Math.Sin(t * Math.PI * 2f) * 8f;
-            float offset = (float)Math.Cos(t * Math.PI) * 100f;
-
-            // --- FLECHA ---
-            flecha.rebootAll(new PointF(center.X - offset, center.Y));
-            flecha.scaleF = escala;
-            flecha.roteGrade(t * 360f);
-            flecha.createFigure();
-
-            using (var penF = new Pen(Color.Red, 4))
+            // Dibujar 3 sets de flecha + estrella en anillo
+            for (int m = 0; m < 3; m++)
             {
-                g.DrawPolygon(penF, flecha.GetPoints());
-            }
+                // Centro desplazado circularmente
+                float angleOff = m * 120f * (float)Math.PI / 180f;
+                PointF localCenter = new PointF(
+                    center.X + (float)Math.Cos(angleOff) * ringRadius,
+                    center.Y + (float)Math.Sin(angleOff) * ringRadius);
 
-            // --- ESTRELLA --- CORREGIDO PARA VERSE
-            estrella.rebootAll(new PointF(center.X + offset, center.Y));
-            estrella.scaleF = 200;
+                // Flecha con estela psicodélica
+                for (int k = 0; k < trailCount; k++)
+                {
+                    float tk = t - k * 0.02f;
+                    if (tk <= 0) continue;
 
-            // ✅ FORZAMOS parámetros claramente visibles
-            estrella.ReadData(5, 60f, 120f);
-            estrella.roteGrade(-t * 360f);
-            estrella.createFigure();
+                    float offsetX = (float)Math.Cos(tk * Math.PI * 2f) * 80f;
+                    float offsetY = (float)Math.Sin(tk * Math.PI * 4f) * 30f;
+                    flecha.rebootAll(new PointF(localCenter.X - offsetX, localCenter.Y + offsetY));
 
-            // ✅ VERDE ↔ AMARILLO
-            Color colorEstrella = (PasoActual % 2 == 0) ?
-                Color.FromArgb(255, 100, 255, 100) : // verde claro
-                Color.FromArgb(255, 255, 230, 80);   // amarillo cálido
+                    float baseScale = 15f + t * 60f;
+                    flecha.scaleF = baseScale * (1f + (float)Math.Sin(tk * Math.PI * 3f) * 0.1f);
 
-            using (var penE = new Pen(colorEstrella, 4))
-            {
-                g.DrawPolygon(penE, estrella.GetPoints());
+                    float rot = tk * 360f * 2f * ((k % 2 == 0) ? 1 : -1) + m * 30f;
+                    flecha.roteGrade(rot);
+                    flecha.createFigure();
+
+                    int alpha = (int)(200 * (1 - k / (float)trailCount));
+                    Color col = Color.FromArgb(alpha,
+                        (int)((1 - tk) * 255),
+                        (int)(tk * 200),
+                        (int)(100 + 155 * tk));
+
+                    using (Pen pen = new Pen(col, 4 - k * 0.4f))
+                        g.DrawPolygon(pen, flecha.GetPoints());
+                }
+
+                // Estrella con estela psicodélica
+                for (int k = 0; k < trailCount; k++)
+                {
+                    float tk = t - k * 0.03f;
+                    if (tk <= 0) continue;
+
+                    float offset = (float)Math.Cos(tk * Math.PI * 2f) * 60f;
+                    estrella.rebootAll(new PointF(localCenter.X + offset, localCenter.Y - offset));
+
+                    float baseScaleE = 40f + tk * 150f;
+                    estrella.scaleF = baseScaleE * (1f + (float)Math.Cos(tk * Math.PI * 2f) * 0.15f);
+
+                    estrella.ReadData(5, 60f, 120f);
+                    estrella.roteGrade(tk * 360f * 1.5f + m * -20f);
+                    estrella.createFigure();
+
+                    int alphaE = (int)(180 * (1 - k / (float)trailCount));
+                    Color baseC = (k % 2 == 0) ? Color.Cyan : Color.Magenta;
+                    Color colE = Color.FromArgb(alphaE,
+                        (baseC.R + (int)(tk * 100)) % 256,
+                        (baseC.G + (int)((1 - tk) * 100)) % 256,
+                        (baseC.B + 50) % 256);
+
+                    using (Pen pen = new Pen(colE, 3 - k * 0.3f))
+                        g.DrawPolygon(pen, estrella.GetPoints());
+                }
             }
         }
 
-
-        public void Clear()
-        {
-            // No cleanup needed
-        }
+        public void Clear() { }
     }
 }

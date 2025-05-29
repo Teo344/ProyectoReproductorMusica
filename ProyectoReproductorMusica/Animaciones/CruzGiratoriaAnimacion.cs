@@ -41,34 +41,39 @@ namespace ProyectoReproductorMusica.Animaciones
             {
                 float t = j / (float)Math.Max(1, maxPasos);
 
-                float alpha = 100 + 155 * (float)Math.Abs(Math.Sin(t * Math.PI * 2));
+                float alpha = 100 + 155 * Math.Abs((float)Math.Sin(t * Math.PI * 2));
                 float elipseScale = 150f + 20f * (float)Math.Sin(t * Math.PI * 2);
                 float cruzScale = 100f + 15f * (float)Math.Sin(t * Math.PI * 4);
                 float rot = t * 720f;
 
-                // === ELIPSE: Azul intermitente ===
+                // --- ELIPSE: Azul intermitente ---
                 elipse.rebootAll(center);
                 elipse.scaleF = elipseScale;
                 elipse.rebootRotation();
                 elipse.createFigure();
 
-                using (var brushElipse = new SolidBrush(Color.FromArgb((int)alpha, 30, 144, 255)))//Azul
+                using (var brushElipse = new SolidBrush(Color.FromArgb((int)alpha, 30, 144, 255)))
                 {
                     g.FillPolygon(brushElipse, elipse.GetPoints());
                 }
-
-                using (var penElipse = new Pen(Color.FromArgb((int)alpha, 0, 191, 255), 4)) 
+                using (var penElipse = new Pen(Color.FromArgb((int)alpha, 0, 191, 255), 4))
                 {
                     g.DrawPolygon(penElipse, elipse.GetPoints());
                 }
 
-                // === CRUZ: Blanca intermitente ===
+                // --- CRUZ: cambia de color psicodélico según t ---
                 cruz.rebootAll(center);
                 cruz.scaleF = cruzScale;
                 cruz.roteGrade(rot);
                 cruz.createFigure();
 
-                using (var penCruz = new Pen(Color.FromArgb((int)alpha, 255, 255, 255), 6))//Blanco
+                // Color dinámico arcoíris
+                int r = (int)((Math.Sin(t * 2 * Math.PI) * 127) + 128);
+                int gCol = (int)((Math.Sin(t * 2 * Math.PI + 2) * 127) + 128);
+                int b = (int)((Math.Sin(t * 2 * Math.PI + 4) * 127) + 128);
+                Color dynamicColor = Color.FromArgb((int)alpha, r, gCol, b);
+
+                using (var penCruz = new Pen(dynamicColor, 6))
                 {
                     g.DrawPolygon(penCruz, cruz.GetPoints());
                 }

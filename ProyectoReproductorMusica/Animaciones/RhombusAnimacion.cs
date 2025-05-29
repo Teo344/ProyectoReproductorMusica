@@ -34,41 +34,67 @@ namespace ProyectoReproductorMusica.Animaciones
 
         public void Draw(Graphics g, PointF center)
         {
-            // Parámetros del rombo base (diagonales antes de escalar)
+            // Parámetros base del rombo
             float baseMayor = 5f;
             float baseMenor = 3f;
 
-            // Calcula escala máxima para cubrir pantalla
-            float screenWidth = g.VisibleClipBounds.Width;
-            float screenHeight = g.VisibleClipBounds.Height;
-            // Usamos la diagonal mayor para cobertura vertical
-            float maxScaleF = screenHeight / baseMayor;
+            // Dimensiones pantalla
+            float screenH = g.VisibleClipBounds.Height;
+            float maxScaleF = screenH / baseMayor;
 
-            for (int j = 0; j <= PasoActual; j++)
+            // Radio para distribuir los 3 rombos en un anillo
+            float ring = screenH * 0.25f;
+
+            // Colores para cada rombo
+            Color[] cols = {
+                Color.FromArgb(180, 255, 100, 100),   // rojo suave
+                Color.FromArgb(180, 100, 255, 100),   // verde suave
+                Color.FromArgb(180, 100, 100, 255)    // azul suave
+            };
+
+            int trail = 6;
+            for (int m = 0; m < 3; m++)
             {
-                float t = j / (float)Math.Max(1, maxPasos);
+                // Centro desplazado circularmente
+                float ang = m * 120f * (float)Math.PI / 180f;
+                PointF loc = new PointF(
+                    center.X + (float)Math.Cos(ang) * ring,
+                    center.Y + (float)Math.Sin(ang) * ring);
 
-                rhombus.rebootAll(center);
-                rhombus.ReadData(baseMayor, baseMenor);
-
-
-                rhombus.scaleF = 1f + t * (maxScaleF - 1f);
-
-
-                rhombus.roteGrade(t * 360f * 2f); 
-                rhombus.createFigure();
-
-                int alpha = (int)(200 * (1 - Math.Abs(2 * t - 1)));
-                Color col = Color.FromArgb(alpha, 200, (int)(50 + 205 * t), 100);
-
-                using (Pen pen = new Pen(col, 3))
+                for (int k = 0; k < trail; k++)
                 {
-                    g.DrawPolygon(pen, rhombus.GetPoints());
+                    float j = PasoActual - k * 3;
+                    if (j < 0) continue;
+                    float t = j / (float)Math.Max(1, maxPasos);
+
+                    // Reinicia y prepara rombo
+                    rhombus.rebootAll(loc);
+                    rhombus.ReadData(baseMayor, baseMenor);
+
+                    // Escala progresiva
+                    rhombus.scaleF = 1f + t * (maxScaleF - 1f);
+
+                    // Rotación diferenciada por rombo y trazo
+                    float rot = t * 360f * (1 + m) + k * 20f;
+                    rhombus.roteGrade(rot);
+                    rhombus.createFigure();
+
+                    // Color y grosor decreciente
+                    int alpha = (int)(180 * (1 - k / (float)trail) * t);
+                    Color col = Color.FromArgb(alpha, cols[m].R, cols[m].G, cols[m].B);
+                    float penWidth = 4f - k * 0.5f;
+
+                    using (Pen pen = new Pen(col, penWidth))
+                    {
+                        g.DrawPolygon(pen, rhombus.GetPoints());
+                    }
                 }
             }
-
         }
 
-        public void Clear() { }
-    }
+        public void Clear()
+        {
+            // No hay estado interno que limpiar
+        }
+}
 }

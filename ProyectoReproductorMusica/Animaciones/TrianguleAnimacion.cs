@@ -49,25 +49,43 @@ namespace ProyectoReproductorMusica.Animaciones
 
             for (int i = 0; i < triangles.Length; i++)
             {
-                // Reinicia triángulo en el centro
-                triangles[i].rebootAll(center);
+                // Efecto de estela con triángulos fantasma
+                int trailCount = 8;
+                float step = maxPasos / (float)trailCount;
 
-                // Escala progresiva
-                triangles[i].scaleF = 1f + t * maxScale;
-                // Rotación a distinta velocidad por triángulo
-                triangles[i].roteGrade(t * 360f * (i + 1));
-                triangles[i].createFigure();
-
-                // Color con alpha variable para suavizar aparición
-                int alpha = (int)(200 * t);
-                Color col = Color.FromArgb(alpha, colors[i]);
-
-                using (var pen = new Pen(col, 3))
+                for (int k = 0; k < trailCount; k++)
                 {
-                    g.DrawPolygon(pen, triangles[i].GetPoints());
+                    float ghostStep = PasoActual - k * step;
+                    if (ghostStep < 0) continue;
+                    float tg = ghostStep / (float)Math.Max(1, maxPasos);
+
+                    // Reinicia triángulo en el centro
+                    triangles[i].rebootAll(center);
+
+                    // Pulso de escala y crecimiento
+                    float pulse = 1f + (float)Math.Sin((tg * Math.PI * 4f) + i) * 0.2f;
+                    triangles[i].scaleF = 1f + tg * maxScale * pulse;
+
+                    // Rotación con variación por instancia
+                    triangles[i].rotationGrade = tg * 360f * (i + 1);
+                    triangles[i].createFigure();
+
+                    // Color dinámico y alpha decreciente según cola
+                    int alpha = (int)(200 * tg * (1 - k / (float)trailCount));
+                    Color baseCol = colors[i];
+                    Color col = Color.FromArgb(alpha,
+                        (baseCol.R + (int)(120 * tg)) % 256,
+                        (baseCol.G + (int)(120 * (1 - tg))) % 256,
+                        (baseCol.B + (int)(200 * Math.Abs(0.5f - tg))) % 256);
+
+                    using (Pen pen = new Pen(col, 4f - k * 0.3f))
+                    {
+                        g.DrawPolygon(pen, triangles[i].GetPoints());
+                    }
                 }
             }
         }
+
 
         public void Clear()
         {
